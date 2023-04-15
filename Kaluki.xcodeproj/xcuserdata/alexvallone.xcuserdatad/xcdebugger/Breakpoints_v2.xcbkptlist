@@ -20,5 +20,115 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7EF24565-ACA5-43B2-976F-BBA1DBE5B76B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Kaluki/ViewModels/ScoreboardViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "142"
+            endingLineNumber = "142">
+            <Locations>
+               <Location
+                  uuid = "7EF24565-ACA5-43B2-976F-BBA1DBE5B76B - a433709ef567803"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Kaluki.ScoreboardViewModel.game(_: Swift.String, didUpdate: Swift.Array&lt;Kaluki.FirebasePlayer&gt;) -&gt; ()"
+                  moduleName = "Kaluki"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexvallone/XCode%20Projects/Kaluki/Kaluki/ViewModels/ScoreboardViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "122"
+                  endingLineNumber = "122"
+                  offsetFromSymbolStart = "73">
+               </Location>
+               <Location
+                  uuid = "7EF24565-ACA5-43B2-976F-BBA1DBE5B76B - adb1733f391ebbf4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Kaluki.FirebasePlayer) -&gt; Swift.Bool in Kaluki.ScoreboardViewModel.game(_: Swift.String, didUpdate: Swift.Array&lt;Kaluki.FirebasePlayer&gt;) -&gt; ()"
+                  moduleName = "Kaluki"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexvallone/XCode%20Projects/Kaluki/Kaluki/ViewModels/ScoreboardViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "122"
+                  endingLineNumber = "122"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E5B47FF7-1A74-4546-81E8-2D0277D45F96"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Kaluki/AppState/GameState+Firebase.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "joinGame(gameID:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E5B47FF7-1A74-4546-81E8-2D0277D45F96 - 83bab3216389d6b2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Kaluki.GameState.joinGame(gameID: Swift.String, completion: (Swift.Optional&lt;Kaluki.GameInfo&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Kaluki"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexvallone/XCode-Projects/Kaluki/Kaluki/AppState/GameState+Firebase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "777">
+               </Location>
+               <Location
+                  uuid = "E5B47FF7-1A74-4546-81E8-2D0277D45F96 - fcbddf0cf466466c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Kaluki.GameState.joinGame(gameID: Swift.String, completion: (Swift.Optional&lt;Kaluki.GameInfo&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Kaluki"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexvallone/XCode-Projects/Kaluki/Kaluki/AppState/GameState+Firebase.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "132"
+                  endingLineNumber = "132"
+                  offsetFromSymbolStart = "268">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CF746D6C-D358-424D-8D16-7C2F790D8046"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Kaluki/AppState/GameState+Firebase.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "GameState"
+            landmarkType = "21">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

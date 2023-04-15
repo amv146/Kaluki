@@ -2,131 +2,99 @@
 import PhotosUI
 import SwiftUI
 
-struct LandingPageView: View {
-    // MARK: Internal
+// MARK: - LandingPageView
 
-    // MARK: - View
+struct LandingPageView: View {
+    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var appState: AppState
 
     var body: some View {
         NavigationView {
             ZStack {
-                Color(.gray)
-                    .ignoresSafeArea()
-                    .opacity(0.1)
-
-                VStack {
+                BackgroundView()
+                VStack(spacing: 20) {
                     Spacer()
                     Image(systemName: "suit.diamond.fill")
                         .resizable()
                         .frame(width: 70, height: 70)
                         .foregroundColor(.blue)
-                        .padding(.bottom, 10)
-                        .shadow(color: Color.gray.opacity(0.5), radius: 10, x: 0, y: 5)
-                    Text("Kaluki")
-                        .font(.largeTitle)
+                        .grayShadow()
+
+                    VStack {
+                        Group {
+                            Text("Kaluki")
+                                .font(.largeTitle)
+                            Text("Scorekeeper")
+                                .font(.title)
+                        }
                         .fontWeight(.bold)
                         .foregroundColor(.blue)
-                        .shadow(color: Color.gray.opacity(0.5), radius: 10, x: 0, y: 5)
-                    Text("Scorekeeper")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.blue)
-                        .padding(.bottom, 20)
-                        .shadow(color: Color.gray.opacity(0.5), radius: 10, x: 0, y: 5)
-                    PhotosPicker(selection: $viewModel.selectedItem, matching: .images) {
-                        Image(uiImage: viewModel.profileImage)
-                            .resizable()
-                            .scaledToFill()
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(Color.blue, lineWidth: 2))
-                            .frame(width: 150, height: 150)
-                            .padding(.bottom, 40)
-                            .shadow(color: Color.gray.opacity(0.3), radius: 10, x: 0, y: 5)
-                    }
-                    .onChange(of: viewModel.selectedItem) { _ in
-                        viewModel.updateProfileImage()
+                        .grayShadow()
                     }
 
-                    TextField("Enter your name", text: $viewModel.displayName)
-                        .font(.title2)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal, 25)
-                        .padding(.bottom, 20)
-                        .frame(width: 300)
+                    LandingPagePhotoPicker()
+                    displayNameTextField
 
-                    Button(action: {
-                        viewModel.startHostingGame()
-                    }) {
-                        Text("Host Game")
-                            .fontWeight(.semibold)
-                            .font(.title)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 25)
-                            .padding(.vertical, 12)
-                            .background(Color.blue)
-                            .cornerRadius(25)
-                            .shadow(color: Color.gray.opacity(0.5), radius: 10, x: 0, y: 5)
+                    NavigationLink(
+                        destination: scoreboardView,
+                        isActive: $viewModel.isLinkActive
+                    ) {
+                        Button(action: { viewModel.startHostingGame() }) {
+                            gameOptionText(title: "Host Game")
+                        }
                     }
-                    .overlay(
-                        NavigationLink(
-                            destination: scoreboardView,
-                            isActive: $viewModel.isLinkActive,
-                            label: { EmptyView() }
+
+                    NavigationLink(
+                        destination: BrowserView(
+                            hosts: viewModel.hosts,
+                            action: { host in viewModel.joinGame(host: host) }
                         )
-                    )
-                    .padding(.bottom, 10)
-
-                    NavigationLink(destination: BrowserView(browser: MultipeerNetwork.browser!, session: MultipeerNetwork.session!) { peerID in
-                        viewModel.joinGame(host: peerID)
-                    }) {
-                        Text("Join Game")
-                            .fontWeight(.semibold)
-                            .font(.title)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 25)
-                            .padding(.vertical, 12)
-                            .background(Color.blue)
-                            .cornerRadius(25)
-                            .shadow(color: Color.gray.opacity(0.5), radius: 10, x: 0, y: 5)
+                    ) {
+                        gameOptionText(title: "Join Game")
                     }
-                    .padding(.bottom, 30)
 
                     Spacer()
                 }
-                .padding(.vertical, 30)
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .disabled(viewModel.pressed)
+        .onAppear(perform: {
+            viewModel.pressed = false
+        })
     }
 
-    // MARK: Private
+    @ObservedObject private var viewModel = LandingViewModel()
 
-    @StateObject private var viewModel = LandingPageViewModel()
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.scenePhase) private var scenePhase
+}
 
-    private var scoreboardView: NavigationLazyView<some View> {
-        NavigationLazyView(ScoreboardView().navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: backButton)
-            .navigationTitle("")
+private extension LandingPageView {
+    var displayNameTextField: some View {
+        TextField("Enter your name", text: $viewModel.displayName)
+            .font(.title)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .padding(.horizontal, 25)
+            .padding(.bottom, 20)
+            .frame(width: 250)
+            .multilineTextAlignment(.center)
+    }
+
+    var scoreboardView: NavigationLazyView<some View> {
+        NavigationLazyView(
+            ScoreboardView()
         )
     }
 
-    private var backButton: some View { Button(action: {
-        viewModel.didTapBack()
-        dismiss()
-    }) {
-        Image(systemName: "chevron.left")
-            .font(.system(size: 13, weight: .bold))
-            .foregroundColor(.white)
-            .padding(10)
-            .padding(.horizontal, 2)
-            .background(Color.blue)
-            .cornerRadius(30)
-            .shadow(color: Color.gray.opacity(0.5), radius: 10, x: 0, y: 5)
-    }
+    func gameOptionText(title: String) -> some View {
+        Text(title)
+            .font(.system(.title, weight: .bold))
+            .padding(.horizontal, 25)
+            .padding(.vertical, 12)
+            .modifier(BlueWhiteModifier(cornerRadius: 25))
     }
 }
+
+// MARK: - LandingPageView_Previews
 
 struct LandingPageView_Previews: PreviewProvider {
     static var previews: some View {

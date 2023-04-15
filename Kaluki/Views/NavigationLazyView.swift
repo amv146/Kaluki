@@ -8,13 +8,16 @@
 import Foundation
 import SwiftUI
 
-struct NavigationLazyView<Content: View>: View {
+struct NavigationLazyView<Content: View>: View
+{
     let build: () -> Content
-    init(_ build: @autoclosure @escaping () -> Content) {
+    init(_ build: @autoclosure @escaping () -> Content)
+    {
         self.build = build
     }
 
-    var body: Content {
+    var body: Content
+    {
         build()
     }
 }

@@ -7,9 +7,12 @@
 
 import SwiftUI
 
-struct GameView: View {
-    var body: some View {
-        VStack {
+struct GameView: View
+{
+    var body: some View
+    {
+        VStack
+        {
             Text("Kaluki")
                 .font(.largeTitle)
                 .padding()

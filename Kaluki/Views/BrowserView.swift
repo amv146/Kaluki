@@ -8,53 +8,75 @@
 import MultipeerConnectivity
 import SwiftUI
 
-struct BrowserView: View {
+struct BrowserView: View
+{
     // MARK: Lifecycle
 
-    init(browser: MCNearbyServiceBrowser, session: MCSession, action: @escaping (MCPeerID) -> Void) {
-        browserVM = BrowserViewModel(browser: browser, session: session, action: action)
+    init(hosts: [BrowsedPeer], action: @escaping (BrowsedPeer) -> Void)
+    {
+        viewModel = BrowserViewModel(hosts: hosts, action: action)
     }
 
     // MARK: Internal
 
-    var body: some View {
-        List {
-            Section(header: Text("Available Peers")) {
-                ForEach(browserVM.availableAndConnectingPeers) { browsedPeer in
-                    BrowsedPeerCell(buttonText: browsedPeer.displayName, statusText: browsedPeer.currentStatus.description) {
-                        self.browserVM.peerClicked(browsedPeer: browsedPeer)
+    @State var pressed = false
+    @ObservedObject var viewModel: BrowserViewModel
+
+    var body: some View
+    {
+        ZStack
+        {
+            BackgroundView()
+            ScrollView
+            {
+                VStack
+                {
+                    ForEach(viewModel.hosts)
+                    { host in
+                        HostCellView(
+                            peer: host
+                        )
+                        {
+                            pressed = true
+                            viewModel.peerClicked(browsedPeer: host)
+                        }
                     }
+                    Spacer()
                 }
+                .padding(.top, 30)
+                .disabled(pressed)
             }
-            Section(header: Text("Connected Peers")) {
-                ForEach(browserVM.connectedPeers, id: \.id) { peer in
-                    BrowsedPeerCell(buttonText: peer.displayName, statusText: peer.currentStatus.description)
-                }
-            }.alert(isPresented: $browserVM.couldntConnect) {
-                Alert(title: Text("Error"), message: Text(browserVM.couldntConnectMessage), dismissButton: .default(Text("OK")))
-            }
-        }.listStyle(GroupedListStyle())
-            .navigationBarTitle(Text("Peer Search"))
-            .onAppear {
-                self.browserVM.startBrowsing()
-            }
-            .onDisappear {
-                self.browserVM.stopBrowsing()
-            }.alert(isPresented: $browserVM.didNotStartBrowsing) {
-                Alert(title: Text("Search Error"), message: Text(browserVM.startErrorMessage), dismissButton: .default(Text("OK"), action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }))
-            }
+        }
+        .navigationBarTitle(Text("Join Game"))
+        .onAppear(perform: {
+            pressed = false
+        })
     }
 
     // MARK: Private
-
-    @Environment(\.presentationMode) private var presentationMode
-    @ObservedObject private var browserVM: BrowserViewModel
 }
 
-struct BrowserView_Previews: PreviewProvider {
-    static var previews: some View {
-        BrowserView(browser: MCNearbyServiceBrowser(peer: MCPeerID(displayName: "Preview"), serviceType: "Kaluki"), session: MCSession(peer: MCPeerID(displayName: "Preview")), action: { _ in })
+let firebasePlayer2 = FirebasePlayer(displayName: "Alex", id: "09230D0D-C50B-4D6A-A0FA-CE465B34155D", profileImage: Constants.defaultProfileImage)
+
+let firebasePlayer3 = FirebasePlayer(displayName: "Hi", id: "09230D0D-C50B-4D6A-A0FA-CE465B34155D", profileImage: Constants.defaultProfileImage)
+
+struct BrowserView_Previews: PreviewProvider
+{
+    static var previews: some View
+    {
+        ZStack
+        {
+            BrowserView(hosts: [
+                BrowsedPeer(
+                    peerID: MCPeerID(displayName: "Alex"),
+                    gameID: "123",
+                    player: firebasePlayer2), BrowsedPeer(
+                    peerID: MCPeerID(displayName: "Hi"),
+                    gameID: "123",
+                    player: firebasePlayer3),
+            ])
+            { _ in
+            }
+        }
     }
 }

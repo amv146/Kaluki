@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - RoundScore
+
 struct RoundScore: Identifiable {
     var round: Int
     var score: Int?
@@ -16,14 +18,19 @@ struct RoundScore: Identifiable {
     }
 }
 
-struct ScoresByRoundCellView: View {
-    // MARK: Internal
+// MARK: - ScoresByRoundCellView
 
+struct ScoresByRoundCellView: View {
     let scoresByRound: [Int: Int]
 
     var roundScores: [RoundScore] {
-        var sortedRoundScores = scoresByRound.sorted(by: { $0.key < $1.key }).map { round, score in
-            RoundScore(round: round + 1, score: score)
+        var sortedRoundScores = scoresByRound.sorted(by: { $0.key < $1.key }).map
+            { round, score in
+                RoundScore(round: round, score: score)
+            }
+
+        if sortedRoundScores.count == 7 {
+            return sortedRoundScores
         }
 
         for round in sortedRoundScores.count + 1 ... 7 {
@@ -36,9 +43,6 @@ struct ScoresByRoundCellView: View {
     var body: some View {
         Grid {
             GridRow(alignment: .bottom) {
-                Text("Round")
-                    .font(.system(size: 12))
-                    .frame(height: 20)
                 ForEach(roundScores, id: \.round) { roundScore in
                     Text("\(roundScore.round)")
                         .font(.system(size: 12))
@@ -46,38 +50,32 @@ struct ScoresByRoundCellView: View {
                 }
             }
             .padding(.top, 5)
+            .padding(.horizontal, 10)
             Divider()
             GridRow(alignment: .top) {
-                Text("Score")
-                    .font(.system(size: 12, weight: .bold))
-                    .frame(height: 20)
                 ForEach(roundScores, id: \.round) { roundScore in
-                    if let score = roundScore.score {
-                        Text("\(score)")
-                            .font(.system(size: 12, weight: .bold))
-                            .frame(height: 20)
-                    } else {
-                        Text(" ")
-                            .font(.system(size: 12, weight: .bold))
-                            .frame(height: 20)
-                    }
+                    Text(roundScore.score != nil ? "\(roundScore.score!)" : "   ")
+                        .font(.system(size: 12, weight: .bold))
+                        .frame(height: 20)
                 }
             }
+            .padding(.horizontal, 10)
             .padding(.bottom, 5)
             .padding(.top, -3)
         }
-        // Animate by revealing from top to bottom
-        .transition(.move(edge: .top))
         .background(.white)
-        .addBorder(Color.gray, width: 1,
-                   cornerRadius: 10, corners: [.bottomLeft, .bottomRight])
-        .padding(.horizontal, 30)
+        .addBorder(
+            Color.gray,
+            width: 1,
+            cornerRadius: 10,
+            corners: [.bottomLeft, .bottomRight]
+        )
+        .padding(.horizontal, 10)
+        .transition(.move(edge: .top))
     }
-
-    // MARK: Private
-
-    @State private var sortOrder = [KeyPathComparator(\Int.self)]
 }
+
+// MARK: - ScoresByRoundCellView_Previews
 
 struct ScoresByRoundCellView_Previews: PreviewProvider {
     static var previews: some View {
