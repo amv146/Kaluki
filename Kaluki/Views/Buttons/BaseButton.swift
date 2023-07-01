@@ -7,31 +7,20 @@
 
 import SwiftUI
 
-struct BaseButton: View
-{
-    // MARK: Lifecycle
+// MARK: - BaseButton
 
-    init(imageSystemName: String, size: CGFloat, action: @escaping () -> Void = {})
-    {
-        self.action = action
-        self.size = size
-        self.imageSystemName = imageSystemName
-    }
-
-    // MARK: Internal
-
+struct BaseButton: View {
     let action: () -> Void
     let size: CGFloat
     let imageSystemName: String
 
-    var body: some View
-    {
-        Button(action: action)
-        {
+    var body: some View {
+        Button(action: action) {
             Image(systemName: imageSystemName)
                 .font(.system(size: size, weight: .bold))
                 .foregroundColor(.white)
                 .padding(size * 2 / 3)
+                .padding(.horizontal, 4)
                 .background(color)
                 .clipShape(Circle())
                 .cornerRadius(size)
@@ -39,20 +28,24 @@ struct BaseButton: View
         }
     }
 
-    // MARK: Private
-
     @Environment(\.isEnabled) private var isEnabled: Bool
 
-    private var color: Color
-    {
+    private var color: Color {
         isEnabled ? Color.blue : Color.gray
     }
+
+    init(imageSystemName: String, size: CGFloat, action: @escaping () -> Void = {}) {
+        self.action = action
+        self.size = size
+        self.imageSystemName = imageSystemName
+    }
+
 }
 
-struct BaseButtonView_Previews: PreviewProvider
-{
-    static var previews: some View
-    {
+// MARK: - BaseButtonView_Previews
+
+struct BaseButtonView_Previews: PreviewProvider {
+    static var previews: some View {
         BaseButton(imageSystemName: "chevron.left", size: 10)
     }
 }

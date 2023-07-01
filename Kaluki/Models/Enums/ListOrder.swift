@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum ListOrder: String, Codable {
-    case alphabetical
-    case score
+enum ListOrder: String, Codable, CaseIterable, Hashable {
+    case alphabetical = "Alphabetical"
+    case score = "Score"
 
     static func description(from listOrder: ListOrder) -> String {
         switch listOrder {
@@ -30,13 +30,14 @@ enum ListOrder: String, Codable {
     }
 
     static func sortPlayers(players: inout [FirebasePlayer]) {
+        print(UserDefaults.listOrder.getOrDefault())
         if UserDefaults.listOrder.getOrDefault() == .score {
-            players.sort {
+            players = players.sorted {
                 if $0.score == $1.score { return $0.displayName.lowercased() < $1.displayName.lowercased() }
                 else { return $0.score < $1.score }
             }
         } else {
-            players.sort {
+            players = players.sorted {
                 if $0.displayName.lowercased() == $1.displayName.lowercased() { return $0.score < $1.score }
                 else { return $0.displayName.lowercased() < $1.displayName.lowercased() }
             }

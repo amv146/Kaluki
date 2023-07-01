@@ -8,31 +8,35 @@
 import PhotosUI
 import SwiftUI
 
-struct LandingPagePhotoPicker: View
-{
+// MARK: - LandingPagePhotoPicker
+
+struct LandingPagePhotoPicker: View {
     @State var showPhotoPicker = false
     @StateObject var viewModel = LandingPhotoPickerViewModel()
     @EnvironmentObject var appState: AppState
-    
-    var body: some View
-    {
+
+    var body: some View {
         Button(action: {
             showPhotoPicker.toggle()
-        })
-        {
+        }) {
             Image(uiImage: viewModel.profileImage)
-                .modifier(BorderedCircleImageModifier(borderWidth: 2, size: 150))
+                .modifier(BorderedCircleImageModifier(borderWidth: 4, size: 150))
                 .padding(.bottom, 40)
-                .photosPicker(isPresented: $showPhotoPicker, selection: $viewModel.selectedItem)
+                .imagePicker(
+                    isPresented: $showPhotoPicker,
+                    sourceType: .photoLibrary
+                ) { image in
+                    viewModel.profileImage = image
+                }
                 .grayShadow()
         }
     }
 }
 
-struct LandingPagePhotoPicker_Previews: PreviewProvider
-{
-    static var previews: some View
-    {
+// MARK: - LandingPagePhotoPicker_Previews
+
+struct LandingPagePhotoPicker_Previews: PreviewProvider {
+    static var previews: some View {
         LandingPagePhotoPicker()
     }
 }

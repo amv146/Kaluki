@@ -8,16 +8,11 @@
 import Combine
 import Foundation
 
-class ViewModel: NSObject, ObservableObject
-{
-    @Published var appState = AppState.shared
-    @Published var gameState = AppState.shared.gameState
-    @Published private var gameStateWillChange: Void = ()
+class ViewModel: NSObject, ObservableObject {
+    @NestedObservableObject var appState = AppState.shared
+    @NestedObservableObject var gameState = AppState.shared.gameState
 
-    override init()
-    {
-        super.init()
-
-        gameState.objectWillChange.assign(to: &$gameStateWillChange)
+    var multipeerState: MultipeerState {
+        appState.multipeerState
     }
 }

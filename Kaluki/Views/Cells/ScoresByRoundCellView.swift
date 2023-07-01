@@ -41,22 +41,22 @@ struct ScoresByRoundCellView: View {
     }
 
     var body: some View {
-        Grid {
-            GridRow(alignment: .bottom) {
+        VStack {
+            HStack {
                 ForEach(roundScores, id: \.round) { roundScore in
                     Text("\(roundScore.round)")
                         .font(.system(size: 12))
-                        .frame(height: 20)
+                        .frame(maxWidth: .infinity)
                 }
             }
-            .padding(.top, 5)
             .padding(.horizontal, 10)
+            .padding(.top, 7)
             Divider()
-            GridRow(alignment: .top) {
+            HStack {
                 ForEach(roundScores, id: \.round) { roundScore in
                     Text(roundScore.score != nil ? "\(roundScore.score!)" : "   ")
                         .font(.system(size: 12, weight: .bold))
-                        .frame(height: 20)
+                        .frame(maxWidth: .infinity)
                 }
             }
             .padding(.horizontal, 10)

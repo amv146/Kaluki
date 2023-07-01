@@ -9,10 +9,9 @@ import Foundation
 import MultipeerConnectivity
 import SwiftUI
 
+// MARK: - UserDefaultType
 
-
-protocol UserDefaultType
-{
+protocol UserDefaultType: Hashable {
     associatedtype T
 
     var key: String { get }
@@ -22,23 +21,24 @@ protocol UserDefaultType
     func set(value: T)
 }
 
-struct UserDefaultDisplayName: UserDefaultType
-{
+// MARK: - UserDefaultDisplayName
+
+struct UserDefaultDisplayName: UserDefaultType {
     var key = "displayName"
     var userDefaults: Foundation.UserDefaults = .standard
 
     typealias T = String
 
-    func getOrDefault() -> String
-    {
+    func getOrDefault() -> String {
         userDefaults.string(forKey: key) ?? "Player"
     }
 
-    func set(value: String)
-    {
+    func set(value: String) {
         userDefaults.set(value, forKey: key)
     }
 }
+
+// MARK: - UserDefaultProfileImage
 
 // struct UserDefaultPeerID: UserDefaultType {
 //    typealias T = MCPeerID
@@ -56,95 +56,99 @@ struct UserDefaultDisplayName: UserDefaultType
 //    }
 // }
 
-struct UserDefaultProfileImage: UserDefaultType
-{
+struct UserDefaultProfileImage: UserDefaultType {
     var key = "profileImageData"
 
     var userDefaults: Foundation.UserDefaults = .standard
 
     typealias T = UIImage
 
-    func getOrDefault() -> UIImage
-    {
+    func getOrDefault() -> UIImage {
         let profileImageData = userDefaults.data(forKey: key)
 
-        if let data = profileImageData, let image = UIImage(data: data)
-        {
+        if let data = profileImageData, let image = UIImage(data: data) {
             print("Image data exists")
             return image
-        }
-        else
-        {
+        } else {
             return Constants.defaultProfileImage
         }
     }
 
-    func set(value: Data)
-    {
+    func set(value: Data) {
         userDefaults.set(value, forKey: key)
     }
 
-    func set(value: UIImage)
-    {
+    func set(value: UIImage) {
         userDefaults.set(value.jpegData(compressionQuality: 0.5), forKey: key)
     }
 }
 
-struct UserDefaultListOrder: UserDefaultType
-{
+// MARK: - UserDefaultListOrder
+
+struct UserDefaultListOrder: UserDefaultType {
     var key = "listOrder"
 
     var userDefaults: Foundation.UserDefaults = .standard
 
     typealias T = ListOrder
 
-    func getOrDefault() -> ListOrder
-    {
-        ListOrder(rawValue: userDefaults.string(forKey: key) ?? ListOrder.score.rawValue) ?? ListOrder.score
+    func getOrDefault() -> ListOrder {
+        ListOrder(
+            rawValue: userDefaults.string(forKey: key) ?? ListOrder.score.rawValue
+        ) ??
+            ListOrder.score
     }
 
-    func set(value: ListOrder)
-    {
+    func set(value: ListOrder) {
         userDefaults.set(value.rawValue, forKey: key)
     }
 }
 
-struct UserDefaultID: UserDefaultType
-{
+// MARK: - UserDefaultID
+
+struct UserDefaultID: UserDefaultType {
     var key = "id"
     var userDefaults: Foundation.UserDefaults = .standard
 
     typealias T = String
 
-    func getOrDefault() -> String
-    {
-        if let id = userDefaults.string(forKey: key)
-        {
+    func getOrDefault() -> String {
+        if let id = userDefaults.string(forKey: key) {
             return id
-        }
-        else
-        {
+        } else {
             let id = UUID().uuidString
             userDefaults.set(id, forKey: key)
             return id
         }
     }
 
-    func set(value: String)
-    {
+    func set(value: String) {
         userDefaults.set(value, forKey: key)
     }
 }
 
-struct UserDefaults
-{
+// MARK: - UserDefaults
+
+struct UserDefaults {
     static let displayName = UserDefaultDisplayName()
     static let profileImage = UserDefaultProfileImage()
     static let listOrder = UserDefaultListOrder()
     static let id = UserDefaultID()
 
-    var userDefaults: Foundation.UserDefaults
-    {
+    var userDefaults: Foundation.UserDefaults {
         Foundation.UserDefaults.standard
+    }
+
+    static func value(for key: UserDefaultsKey) -> any UserDefaultType {
+        switch key {
+            case .displayName:
+                return displayName
+            case .id:
+                return id
+            case .listOrder:
+                return listOrder
+            case .profileImage:
+                return profileImage
+        }
     }
 }

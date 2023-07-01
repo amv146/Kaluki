@@ -22,14 +22,13 @@ class LandingViewModel: ViewModel {
 
         super.init()
 
-        appState.multipeerState.browser?.startBrowsingForPeers()
-        appState.multipeerState.browser?.delegate = self
+        multipeerState.browser?.delegate = self
     }
 
     func joinGame(host browsedPeer: BrowsedPeer) {
         pressed = true
 
-        appState.gameState.joinGame(gameID: browsedPeer.gameID) { _, _ in
+        gameState.joinGame(gameID: browsedPeer.gameID) { _, _ in
             self.pressed = false
             self.isLinkActive = true
 
@@ -40,7 +39,8 @@ class LandingViewModel: ViewModel {
     func startHostingGame() {
         pressed = true
 
-        appState.gameState.createNewGame { _ in
+        gameState.createNewGame { gameID in
+            self.multipeerState.startAdvertisingGame(gameID: gameID, player: self.gameState.currentPlayer)
             self.pressed = false
             self.isLinkActive = true
         }
@@ -55,31 +55,29 @@ extension LandingViewModel: MCNearbyServiceBrowserDelegate {
         foundPeer peerID: MCPeerID,
         withDiscoveryInfo info: [String: String]?
     ) {
-        let displayName = info?["displayName"] ?? peerID.displayName
-        let gameID = info?["gameID"]
-        let id = info?["playerID"]
-        print("Found a new peer: \(displayName)")
+        guard let info, let gameDiscoveryInfo = try? GameDiscoveryInfo(dict: info) else { return }
+        print("Found peer \(gameDiscoveryInfo.playerID)")
 
-        if hosts.contains(where: { $0.id.uuidString == id }) { return }
-        guard let id, let gameID else { return }
+        if hosts.contains(where: { $0.id.uuidString == gameDiscoveryInfo.playerID }) { return }
 
-        FirebasePlayer.from(gameID: gameID, firebasePlayerID: id) { player in
+        FirebasePlayer.from(gameID: gameDiscoveryInfo.gameID, playerID: gameDiscoveryInfo.playerID) { player in
             guard let player else { return }
             player.downloadProfileImage { _ in
                 let browsedPeer = BrowsedPeer(
                     peerID: peerID,
-                    gameID: gameID,
+                    gameID: gameDiscoveryInfo.gameID,
                     player: player
                 )
 
                 self.hosts.append(browsedPeer)
-                print("Added \(displayName) to the list of hosts")
             }
         }
     }
 
     func browser(_: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         print("Peer \(peerID.displayName) is lost. Removing...")
+        
+        self.hosts.removeAll(where: { $0.peerID == peerID })
     }
 
     func browser(_: MCNearbyServiceBrowser, didNotStartBrowsingForPeers _: Error) {}

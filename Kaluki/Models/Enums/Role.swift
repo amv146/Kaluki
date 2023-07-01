@@ -15,6 +15,7 @@ enum Role: String, Codable {
     /** In another file, I want to show the role of players with special roles in the UI, so I have a static function to easily get text for each
      role */
     static func roleTitle(from role: Role) -> String {
+
         switch role {
             case .guest:
                 return "Guest"

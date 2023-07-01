@@ -45,7 +45,7 @@ class FirebasePlayer: ObservableObject, Identifiable {
 
     static func from(
         gameID: String,
-        firebasePlayerID playerID: String,
+        playerID: String,
         completion: @escaping (FirebasePlayer?) -> Void
     ) {
         let playerRef = FirebaseUtils.gamesRef.document(gameID).collection("players")

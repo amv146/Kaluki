@@ -56,6 +56,15 @@ extension Encodable {
     }
 }
 
+extension Decodable
+{
+    init<Key: Hashable>(dict: [Key: Any]) throws
+    {
+        let data = try JSONSerialization.data(withJSONObject: dict, options: [])
+        self = try data.decoded()
+    }
+}
+
 extension Data {
     func decoded<T: Decodable>() throws -> T {
         try JSONDecoder().decode(T.self, from: self)

@@ -11,7 +11,6 @@ extension UIImage
 {
     func isDefaultProfileImage() -> Bool
     {
-        print(accessibilityIdentifier)
         return accessibilityIdentifier == "defaultProfileImage"
     }
 }

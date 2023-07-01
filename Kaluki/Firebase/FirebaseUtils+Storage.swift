@@ -17,7 +17,7 @@ extension FirebaseUtils
         profileImages.child(id + ".jpg")
     }
 
-    static func setProfileImage(profileImage image: UIImage, for playerID: String, completion: ((Bool) -> Void)?)
+    static func setProfileImage(profileImage image: UIImage, for playerID: String, completion: ((Bool) -> Void)? = nil)
     {
         let data = image.jpegData(compressionQuality: 0.1)
         let profileImageRef = profileImageRef(playerID: playerID)

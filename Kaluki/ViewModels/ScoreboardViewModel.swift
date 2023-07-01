@@ -20,16 +20,7 @@ class ScoreboardViewModel: ViewModel {
     override init() {
         super.init()
 
-        appState.multipeerState.browser?.stopBrowsingForPeers()
-        gameState.delegate = self
-    }
-
-    func addScore(score: Int) {
-        gameState.addScoreToPlayer(
-            playerID: currentPlayer.id,
-            score: score,
-            round: round
-        )
+        multipeerState.browser?.stopBrowsingForPeers()
     }
 
     func canAddScore() -> Bool {
@@ -70,31 +61,5 @@ class ScoreboardViewModel: ViewModel {
 
     func isGameOver() -> Bool {
         return round > 7
-    }
-
-    func toggleListOrder() {
-        print(UserDefaults.listOrder.getOrDefault())
-        UserDefaults.listOrder.set(value: !UserDefaults.listOrder.getOrDefault())
-
-        if gameState.players != nil {
-            ListOrder.sortPlayers(players: &gameState.players!)
-        }
-    }
-}
-
-// MARK: GameDelegate
-
-extension ScoreboardViewModel: GameDelegate {
-    func game(_: String, didUpdate round: Int) {
-        print("Did Update Round \(round)")
-
-        appState.gameState.round = round
-    }
-
-    func game(_: String, didUpdate players: [FirebasePlayer]) {
-        currentPlayer.update(
-            from: players.first(where: { $0.id == currentPlayer.id })!,
-            completion: { _ in }
-        )
     }
 }
