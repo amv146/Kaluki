@@ -9,21 +9,35 @@ import SwiftUI
 
 // MARK: - ListOrderButton
 
-struct ListOrderButton: View {
+struct SettingsButton: View {
     @EnvironmentObject var appState: AppState
+    @State var cardSuit = UserDefaults.cardSuit.getOrDefault()
     @State var listOrder = UserDefaults.listOrder.getOrDefault()
 
     var body: some View {
         VStack(spacing: 10) {
             Menu {
-                Picker("", selection: $listOrder) {
-                    ForEach(ListOrder.allCases, id: \.self) { listOrderCase in
-                        Text(listOrderCase.rawValue)
+                Menu {
+                    Picker("", selection: $listOrder) {
+                        ForEach(ListOrder.allCases, id: \.self) { listOrderCase in
+                            Text(listOrderCase.rawValue)
+                        }
                     }
+                } label: {
+                    Label("Sort by", systemImage: "arrow.up.arrow.down")
+                }
+                Menu {
+                    Picker("", selection: $cardSuit) {
+                        ForEach(CardSuit.allCases, id: \.self) { cardSuitCase in
+                            Label(cardSuitCase.rawValue, systemImage: "suit.\(cardSuitCase.rawValue.prefix(cardSuitCase.rawValue.count - 1).lowercased()).fill")
+                        }
+                    }
+                } label: {
+                    Label("Card suit", systemImage: "suit.\(cardSuit.rawValue.prefix(cardSuit.rawValue.count - 1).lowercased()).fill")
                 }
             } label: {
                 BaseButton(
-                    imageSystemName: "arrow.up.arrow.down",
+                    imageSystemName: "gearshape",
                     size: 15,
                     action: {}
                 )
@@ -34,6 +48,9 @@ struct ListOrderButton: View {
                 if appState.gameState.players != nil {
                     ListOrder.sortPlayers(players: &appState.gameState.players!)
                 }
+            }
+            .onChange(of: cardSuit) { newValue in
+                UserDefaults.cardSuit.set(value: newValue)
             }
         }
     }
@@ -49,8 +66,8 @@ struct ListOrderButton: View {
 
 // MARK: - ListOrderButton_Previews
 
-struct ListOrderButton_Previews: PreviewProvider {
+struct SettingsButton_Previews: PreviewProvider {
     static var previews: some View {
-        ListOrderButton()
+        SettingsButton()
     }
 }

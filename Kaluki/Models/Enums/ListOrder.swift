@@ -30,7 +30,6 @@ enum ListOrder: String, Codable, CaseIterable, Hashable {
     }
 
     static func sortPlayers(players: inout [FirebasePlayer]) {
-        print(UserDefaults.listOrder.getOrDefault())
         if UserDefaults.listOrder.getOrDefault() == .score {
             players = players.sorted {
                 if $0.score == $1.score { return $0.displayName.lowercased() < $1.displayName.lowercased() }

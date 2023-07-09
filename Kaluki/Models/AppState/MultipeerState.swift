@@ -45,7 +45,7 @@ extension MultipeerState: MCNearbyServiceAdvertiserDelegate {
     }
     
     func startAdvertisingGame(gameID: String, player: FirebasePlayer) {
-        advertiser?.stopAdvertisingPeer()
+        
         advertiser = MCNearbyServiceAdvertiser(
             peer: myPeerID,
             discoveryInfo: try? GameDiscoveryInfo(gameID: gameID, playerID: player.id).dictionary() as? [String: String],

@@ -52,10 +52,11 @@ struct LandingPageView: View {
                         Spacer()
                     }
                     .onAppear {
-                        viewModel.hosts = []
-                        appState.multipeerState.browser?.stopBrowsingForPeers()
+//                        viewModel.hosts = []
+//                        appState.multipeerState.browser?.stopBrowsingForPeers()
                         appState.multipeerState.browser?.startBrowsingForPeers()
-                        appState.multipeerState.advertiser?.stopAdvertisingPeer()
+//
+//                        print("LandingPageView onAppear")
                         viewModel.pressed = false
                     }
                     

@@ -41,7 +41,7 @@ struct ScoreboardView: View {
             ToolbarItem(placement: .navigationBarTrailing, content: { undoButton })
             ToolbarItem(
                 placement: .confirmationAction,
-                content: { ListOrderButton() }
+                content: { SettingsButton() }
             )
         }
         .confirmationDialog(
@@ -125,7 +125,7 @@ private extension ScoreboardView {
             }
         }
     }
-    
+
     var undoButton: some View {
         BaseButton(imageSystemName: "arrow.uturn.backward", size: 12) {
             withAnimation {

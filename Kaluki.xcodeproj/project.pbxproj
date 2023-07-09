@@ -23,6 +23,7 @@
 		8E3B80C529CF70CE002B880C /* LandingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3B80C429CF70CE002B880C /* LandingViewModel.swift */; };
 		8E3B80C829CF7EA3002B880C /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3B80C729CF7EA3002B880C /* UserDefaults.swift */; };
 		8E40DBE729E1073100FF5B85 /* AddScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E40DBE629E1073100FF5B85 /* AddScoreView.swift */; };
+		8E4812AA2A50F0B000144735 /* CardSuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4812A92A50F0B000144735 /* CardSuit.swift */; };
 		8E4BC81829D0BF9C00D3E7F7 /* ScoresByRoundCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4BC81729D0BF9C00D3E7F7 /* ScoresByRoundCellView.swift */; };
 		8E4BC81A29D0D49600D3E7F7 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4BC81929D0D49600D3E7F7 /* View+Extensions.swift */; };
 		8E53DC4529E8BF6200A34261 /* RoundDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53DC4429E8BF6200A34261 /* RoundDetails.swift */; };
@@ -100,6 +101,7 @@
 		8E3B80C429CF70CE002B880C /* LandingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewModel.swift; sourceTree = "<group>"; };
 		8E3B80C729CF7EA3002B880C /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		8E40DBE629E1073100FF5B85 /* AddScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScoreView.swift; sourceTree = "<group>"; };
+		8E4812A92A50F0B000144735 /* CardSuit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSuit.swift; sourceTree = "<group>"; };
 		8E4BC81729D0BF9C00D3E7F7 /* ScoresByRoundCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresByRoundCellView.swift; sourceTree = "<group>"; };
 		8E4BC81929D0D49600D3E7F7 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		8E53DC4429E8BF6200A34261 /* RoundDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundDetails.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				8EC6B57B29E4E2B100E00BCD /* Card.swift */,
 				8E53DC4C29E8D01400A34261 /* ListOrder.swift */,
 				8E53DC4629E8C25600A34261 /* Role.swift */,
+				8E4812A92A50F0B000144735 /* CardSuit.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				8E4BC81829D0BF9C00D3E7F7 /* ScoresByRoundCellView.swift in Sources */,
 				8EE8C85629EDF3DD005DB897 /* TextFieldDynamicWidth.swift in Sources */,
 				8EB245E529E7D97700ECBCA9 /* UIImage+Extensions.swift in Sources */,
+				8E4812AA2A50F0B000144735 /* CardSuit.swift in Sources */,
 				8E3B80C829CF7EA3002B880C /* UserDefaults.swift in Sources */,
 				8E4BC81A29D0D49600D3E7F7 /* View+Extensions.swift in Sources */,
 				8E03134F29DB875700BEF888 /* ViewModel.swift in Sources */,

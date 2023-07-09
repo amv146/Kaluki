@@ -19,7 +19,7 @@ enum Card: String, Hashable {
     case Seven = "7"
     case Eight = "8"
     case Nine = "9"
-    case Ten = "10"
+    case Ten = "T"
     case Jack = "J"
     case Queen = "Q"
     case King = "K"
@@ -27,36 +27,10 @@ enum Card: String, Hashable {
     case Joker
 
     var image: UIImage {
-        switch self {
-            case .Two:
-                return UIImage(named: "Cards/2S")!
-            case .Three:
-                return UIImage(named: "Cards/3S")!
-            case .Four:
-                return UIImage(named: "Cards/4S")!
-            case .Five:
-                return UIImage(named: "Cards/5S")!
-            case .Six:
-                return UIImage(named: "Cards/6S")!
-            case .Seven:
-                return UIImage(named: "Cards/7S")!
-            case .Eight:
-                return UIImage(named: "Cards/8S")!
-            case .Nine:
-                return UIImage(named: "Cards/9S")!
-            case .Ten:
-                return UIImage(named: "Cards/TS")!
-            case .Jack:
-                return UIImage(named: "Cards/JS")!
-            case .Queen:
-                return UIImage(named: "Cards/QS")!
-            case .King:
-                return UIImage(named: "Cards/KS")!
-            case .Ace:
-                return UIImage(named: "Cards/AS")!
-            case .Joker:
-                return UIImage(named: "Cards/joker_black")!
-        }
+        let cardSuit = UserDefaults.cardSuit.getOrDefault()
+        let imageName = self == .Joker ? "Cards/joker_black" : "Cards/\(rawValue)\(cardSuit.abbreviation)" 
+        
+        return UIImage(named: imageName)!
     }
 
     var view: some View {

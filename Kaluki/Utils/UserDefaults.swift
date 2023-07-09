@@ -40,21 +40,24 @@ struct UserDefaultDisplayName: UserDefaultType {
 
 // MARK: - UserDefaultProfileImage
 
-// struct UserDefaultPeerID: UserDefaultType {
-//    typealias T = MCPeerID
-//
-//    var key = "peerID"
-//
-//    var userDefaults: Foundation.UserDefaults = .standard
-//
-//    func getOrDefault() -> MCPeerID {
-//        userDefaults.data(forKey: key) as! MCPeerID ?? MCPeerID(displayName: "Player")
-//    }
-//
-//    func set(value: MCPeerID) {
-//        userDefaults.set(value, forKey: key)
-//    }
-// }
+struct UserDefaultCardSuit: UserDefaultType {
+    var key = "cardSuit"
+    var userDefaults: Foundation.UserDefaults = .standard
+
+    typealias T = CardSuit
+
+    func getOrDefault() -> CardSuit {
+        CardSuit(
+            rawValue: userDefaults.string(forKey: key) ?? CardSuit.spades.rawValue
+        ) ??
+            CardSuit.spades
+    }
+
+    func set(value: CardSuit) {
+        userDefaults.set(value.rawValue, forKey: key)
+    }
+}
+
 
 struct UserDefaultProfileImage: UserDefaultType {
     var key = "profileImageData"
@@ -130,10 +133,12 @@ struct UserDefaultID: UserDefaultType {
 // MARK: - UserDefaults
 
 struct UserDefaults {
+    static let cardSuit = UserDefaultCardSuit()
     static let displayName = UserDefaultDisplayName()
-    static let profileImage = UserDefaultProfileImage()
-    static let listOrder = UserDefaultListOrder()
     static let id = UserDefaultID()
+    static let listOrder = UserDefaultListOrder()
+    static let profileImage = UserDefaultProfileImage()
+    
 
     var userDefaults: Foundation.UserDefaults {
         Foundation.UserDefaults.standard

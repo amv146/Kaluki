@@ -247,11 +247,6 @@ internal extension GameState {
             round -= 1
         }
 
-        gameRef?.updateData([
-            "schneids.\(round)": FieldValue.delete(),
-            "round": round,
-        ])
-
         gamePlayersRef?.document(currentPlayer.id).updateData([
             "score": FieldValue.increment(Int64(-lastAddedScore.score)),
             "scoresByRound.\(round)": FieldValue.delete(),
@@ -259,6 +254,11 @@ internal extension GameState {
 
         if lastAddedScore.schneid {
             schneids[round] = nil
+            
+            gameRef?.updateData([
+                "schneids.\(round)": FieldValue.delete(),
+                "round": round,
+            ])
 
             for player in players {
                 if player.id != currentPlayer.id, player.scoresByRound.count >= round {
