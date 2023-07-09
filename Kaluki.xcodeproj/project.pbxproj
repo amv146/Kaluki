@@ -72,7 +72,7 @@
 		8EC6068029D8CE570031D934 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC6067F29D8CE570031D934 /* AppState.swift */; };
 		8EC6B57C29E4E2B100E00BCD /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC6B57B29E4E2B100E00BCD /* Card.swift */; };
 		8ED28C2C29D8059A000FB804 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED28C2B29D8059A000FB804 /* NotificationCenter.swift */; };
-		8EDCD84D29EDF823009658D8 /* ListOrderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDCD84C29EDF823009658D8 /* ListOrderButton.swift */; };
+		8EDCD84D29EDF823009658D8 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDCD84C29EDF823009658D8 /* SettingsButton.swift */; };
 		8EDCD84F29EDFA44009658D8 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDCD84E29EDFA44009658D8 /* UserDefault.swift */; };
 		8EDCD85129EDFA99009658D8 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDCD85029EDFA99009658D8 /* UserDefaultsKey.swift */; };
 		8EE8C85129ECDF99005DB897 /* GameDiscoveryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE8C85029ECDF99005DB897 /* GameDiscoveryInfo.swift */; };
@@ -150,7 +150,7 @@
 		8EC6B57B29E4E2B100E00BCD /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		8EC8278B29D526DF008338C4 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		8ED28C2B29D8059A000FB804 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
-		8EDCD84C29EDF823009658D8 /* ListOrderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOrderButton.swift; sourceTree = "<group>"; };
+		8EDCD84C29EDF823009658D8 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		8EDCD84E29EDFA44009658D8 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		8EDCD85029EDFA99009658D8 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		8EE8C85029ECDF99005DB897 /* GameDiscoveryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDiscoveryInfo.swift; sourceTree = "<group>"; };
@@ -295,7 +295,7 @@
 		8E95981C29CFC4DE0063701F /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				8EDCD84C29EDF823009658D8 /* ListOrderButton.swift */,
+				8EDCD84C29EDF823009658D8 /* SettingsButton.swift */,
 				8E95981F29CFC7A00063701F /* AddScoreButton.swift */,
 				8E95981D29CFC5500063701F /* BackButton.swift */,
 				8E67450729D770A000CF87D3 /* BaseButton.swift */,
@@ -514,7 +514,7 @@
 				8E762C0029CBDA5D004B6836 /* BrowsedPeer.swift in Sources */,
 				8E762C0429CBDB42004B6836 /* BrowserView.swift in Sources */,
 				8E762BFE29CBDA2A004B6836 /* BrowserViewModel.swift in Sources */,
-				8EDCD84D29EDF823009658D8 /* ListOrderButton.swift in Sources */,
+				8EDCD84D29EDF823009658D8 /* SettingsButton.swift in Sources */,
 				8EC6B57C29E4E2B100E00BCD /* Card.swift in Sources */,
 				8EACD5DD29DF868D008EFF98 /* ChangeableScoreView.swift in Sources */,
 				8EB245E329E7D5A700ECBCA9 /* Constants.swift in Sources */,
